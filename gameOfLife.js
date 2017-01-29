@@ -47,7 +47,7 @@ function gameOfLife(board, m, n) {
 	for (var i = 0; i < m; ++i)
 		for (var j = 0; j < n; ++j) {
 			var nebs = getNeighbors(board, i, j, m, n);
-			console.log("("+i+", "+j + "): " + nebs);
+			// console.log("("+i+", "+j + "): " + nebs);
 			if(nebs == 2) board[i][j] |= (board[i][j] & 0x1) << 1; // 保持不变
 			else if(nebs == 3) board[i][j] |= 0x2; // 增生
 			else board[i][j] &= 0x1; // 死亡
@@ -62,7 +62,7 @@ function gameOfLife(board, m, n) {
 
 function run() {
 	// 初始化数组
-	if(typeof run.init == 'undefined') {
+	if(typeof this.init == 'undefined') {
 		board = [];
 		m = parseInt(bw/d);
 		n = parseInt(bh/d);
@@ -73,7 +73,7 @@ function run() {
 				// board[i][j] = 0;
 		}
 		initBoard();
-		run.init = true;
+		this.init = true;
 	}
 
 	gameOfLife(board, m, n);
