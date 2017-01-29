@@ -73,7 +73,7 @@ function run() {
 		}
 		initBoard();
 		document.getElementById('canvas').addEventListener("mousedown", function(e) {
-			console.log(e.pageX, e.pageY, e.button);
+			// console.log(e.pageX, e.pageY, e.button);
 			if(e.button == 1) { // 鼠标中键清除
 				for (var i = 0; i < m; ++i)
 					for (var j = 0; j < n; ++j)
@@ -82,7 +82,9 @@ function run() {
 			else if(e.button == 2) { // 右键暂停
 				pauseGameOfLife = ! pauseGameOfLife;
 			} else { // 左键添加细胞
-				board[parseInt(e.pageX/d - 0.5)][parseInt(e.pageY / d - 0.5)] = 1;
+				var x = parseInt(e.pageX/d - 0.5);
+				var y = parseInt(e.pageY/d - 0.5);
+				board[x][y] = (board[x][y] & 0x1) ^ 0x1;
 			}
 		}, false);
 		this.init = true;
