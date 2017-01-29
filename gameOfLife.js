@@ -1,7 +1,8 @@
-
 var ctx = document.getElementById('canvas').getContext("2d");
 var bw = 800, bh = 600; // 画布宽、高
 var d = 15; // 格子大小
+
+pauseGameOfLife = false;
 
 function randomColor() {
 	return "#"+(Math.round((1<<24)*Math.random())).toString(16);
@@ -23,7 +24,7 @@ function drawBoard(board, m, n) {
 	// 绘制格子
 	for(var i=0; i < m; ++i) {
 		for(var j = 0; j < n; ++j) {
-			ctx.fillStyle = randomColor();
+			// ctx.fillStyle = randomColor();
 			if(board[i][j] & 0x1)
 				ctx.fillRect(i*d, j*d, d, d);
 			else
@@ -58,7 +59,6 @@ function gameOfLife(board, m, n) {
 			board[i][j] >>= 1;
 }
 
-
 function run() {
 	// 初始化数组
 	if(typeof this.init == 'undefined') {
@@ -69,13 +69,28 @@ function run() {
 			board[i] = [];
 			for(var j = 0; j < n; ++j)
 				board[i][j] = Math.round(Math.random());
-				// board[i][j] = 0;
+				board[i][j] = 0;
 		}
 		initBoard();
+		document.getElementById('canvas').addEventListener("mousedown", function(e) {
+			console.log(e.pageX, e.pageY, e.button);
+			if(e.button == 1) { // 鼠标中键清除
+				for (var i = 0; i < m; ++i)
+					for (var j = 0; j < n; ++j)
+						board[i][j] = 0;
+			}
+			else if(e.button == 2) { // 右键暂停
+				pauseGameOfLife = ! pauseGameOfLife;
+			} else { // 左键添加细胞
+				board[parseInt(e.pageX/d - 0.5)][parseInt(e.pageY / d - 0.5)] = 1;
+			}
+		}, false);
 		this.init = true;
 	}
 
-	gameOfLife(board, m, n);
+	if(! pauseGameOfLife) {
+		gameOfLife(board, m, n);
+	}
 	drawBoard(board, m, n);
 }
 
