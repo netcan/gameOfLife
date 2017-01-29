@@ -72,10 +72,6 @@ function run() {
 				board[i][j] = Math.round(Math.random());
 				// board[i][j] = 0;
 		}
-		// board[5][5] = 1;
-		// board[6][5] = 1;
-		// board[6][4] = 1;
-		// board[7][5] = 1;
 		initBoard();
 		run.init = true;
 	}
@@ -84,5 +80,5 @@ function run() {
 	drawBoard(board, m, n);
 }
 
-setInterval("run()", 500);
+setInterval("run()", 400);
 
