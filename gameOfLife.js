@@ -52,7 +52,6 @@ function gameOfLife(board, m, n) {
 			else if(nebs == 3) board[i][j] |= 0x2; // 增生
 			else board[i][j] &= 0x1; // 死亡
 		}
-	console.log("\n");
 
 	for (var i = 0; i < m; ++i)
 		for (var j = 0; j < n; ++j)
