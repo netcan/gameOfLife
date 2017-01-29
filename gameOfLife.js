@@ -78,6 +78,7 @@ function run() {
 				for (var i = 0; i < m; ++i)
 					for (var j = 0; j < n; ++j)
 						board[i][j] = 0;
+				pauseGameOfLife = true;
 			}
 			else if(e.button == 2) { // 右键暂停
 				pauseGameOfLife = ! pauseGameOfLife;
