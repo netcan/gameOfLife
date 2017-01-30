@@ -18,22 +18,15 @@ function drawBoard(board, m, n) {
 				ctx.fillStyle = 'green';
 				// ctx.fillStyle = randomColor();
 				ctx.fill();
-
-				ctx.beginPath();
-				ctx.lineWidth = "1";
-				ctx.strokeStyle="black";
-				ctx.rect(i*d, j*d, d, d);
-
-				ctx.stroke();
 			}
 			else {
 				ctx.clearRect(i*d, j*d, d, d);
-				ctx.beginPath();
-				ctx.lineWidth = "1";
-				ctx.strokeStyle="black";
-				ctx.rect(i*d, j*d, d, d);
-				ctx.stroke();
 			}
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle="black";
+			ctx.rect(i*d, j*d, d, d);
+			ctx.stroke();
 		}
 	}
 }
