@@ -8,30 +8,34 @@ function randomColor() {
 	return "#"+(Math.round((1<<24)*Math.random())).toString(16);
 }
 
-function initBoard() {
-	// 初始化格子
-	for(var x = 0; x<=bw; x+=d) {
-		ctx.moveTo(x, 0);
-		ctx.lineTo(x, bh);
-	}
-	for(var y = 0; y<=bh; y+=d) {
-		ctx.moveTo(0, y);
-		ctx.lineTo(bw, y);
-	}
-}
-
 function drawBoard(board, m, n) {
 	// 绘制格子
 	for(var i=0; i < m; ++i) {
 		for(var j = 0; j < n; ++j) {
-			// ctx.fillStyle = randomColor();
-			if(board[i][j] & 0x1)
-				ctx.fillRect(i*d, j*d, d, d);
-			else
+			if(board[i][j] & 0x1) {
+				ctx.beginPath();
+				ctx.arc((i+1/2)*d, (j+1/2)*d, d/2, 0, 2*Math.PI);
+				ctx.fillStyle = 'green';
+				// ctx.fillStyle = randomColor();
+				ctx.fill();
+
+				ctx.beginPath();
+				ctx.lineWidth = "1";
+				ctx.strokeStyle="black";
+				ctx.rect(i*d, j*d, d, d);
+
+				ctx.stroke();
+			}
+			else {
 				ctx.clearRect(i*d, j*d, d, d);
+				ctx.beginPath();
+				ctx.lineWidth = "1";
+				ctx.strokeStyle="black";
+				ctx.rect(i*d, j*d, d, d);
+				ctx.stroke();
+			}
 		}
 	}
-	ctx.stroke();
 }
 
 function getNeighbors(board, x, y, m, n) {
@@ -71,7 +75,6 @@ function run() {
 				board[i][j] = Math.round(Math.random());
 				board[i][j] = 0;
 		}
-		initBoard();
 		document.getElementById('canvas').addEventListener("mousedown", function(e) {
 			// console.log(e.pageX, e.pageY, e.button);
 			if(e.button == 1) { // 鼠标中键清除
